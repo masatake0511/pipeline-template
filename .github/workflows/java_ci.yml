@@ -12,8 +12,8 @@ jobs:
         uses: actions/checkout@v4
 
       # ★ ここで実行権限を付与
-      - name: Grant execute permission
-        run: chmod +x .github/actions/build/java/script/build_java.sh
+      #- name: Grant execute permission
+      #  run: chmod +x .github/actions/build/java/script/build_java.sh
 
       # ★ そのあと Action を呼ぶ
       - name: Build Java
