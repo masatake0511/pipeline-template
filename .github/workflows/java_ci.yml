@@ -1,0 +1,20 @@
+name: Java CI Template
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ★ ここで実行権限を付与
+      - name: Grant execute permission
+        run: chmod +x .github/actions/build/java/script/build_java.sh
+
+      # ★ そのあと Action を呼ぶ
+      - name: Build Java
+        uses: ./.github/actions/build/java
