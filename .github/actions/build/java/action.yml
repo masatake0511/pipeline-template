@@ -5,6 +5,4 @@ runs:
   using: docker
   image: docker://ghcr.io/masatake0511/build-java:0.0.2
   args:
-    - ls -l
-    - tree
     - /github/workspace/.github/actions/build/java/script/build_java.sh

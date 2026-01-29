@@ -1,24 +1,38 @@
-name: Java CI Template
+name: Reusable Java CI
 
 on:
   workflow_call:
+    inputs:
+      java-version:
+        description: "Java version"
+        required: false
+        type: string
+        default: "17"
+      gradle-task:
+        description: "Gradle task to run"
+        required: false
+        type: string
+        default: "build"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-      #- name: Checkout 
-      #  uses: actions/checkout@v4
-      #  with:
-      #      repository: masatake0511/pipeline-template
-      #      ref: v1
-      #      path: pipeline-template
-      # ★ ここで実行権限を付与
-      #- name: Grant execute permission
-      #  run: chmod +x .github/actions/build/java/script/build_java.sh
+    # ★ ここがポイント：Docker Actionではなく job.container
+    container:
+      image: ghcr.io/masatake0511/build-java:0.0.2
 
-      # ★ そのあと Action を呼ぶ
-      - name: Build Java
-        #uses: ./pipeline-template/.github/actions/build/java
-        uses: masatake0511/pipeline-template/.github/actions/build/java@main
+    steps:
+      # 呼び元リポジトリがチェックアウトされる
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Show environment (debug)
+        run: |
+          java -version
+          pwd
+          ls -la
+
+      - name: Gradle build
+        run: |
+          ./gradlew ${{ inputs.gradle-task }}
