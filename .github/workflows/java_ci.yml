@@ -20,7 +20,7 @@ jobs:
 
     # ★ ここがポイント：Docker Actionではなく job.container
     container:
-      image: ghcr.io/masatake0511/build-java:0.0.2
+      image: ghcr.io/masatake0511/build-java:0.0.3
 
     steps:
       # 呼び元リポジトリがチェックアウトされる
