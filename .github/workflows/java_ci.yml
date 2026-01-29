@@ -8,8 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      #- name: Checkout 
+      #  uses: actions/checkout@v4
+      #  with:
+      #      repository: masatake0511/pipeline-template
+      #      ref: v1
+      #      path: pipeline-template
 
       # ★ ここで実行権限を付与
       #- name: Grant execute permission
@@ -17,4 +21,5 @@ jobs:
 
       # ★ そのあと Action を呼ぶ
       - name: Build Java
-        uses: ./pipeline-template/.github/actions/build/java
+        #uses: ./pipeline-template/.github/actions/build/java
+        uses: masatake0511/pipeline-template/actions/build/java
