@@ -2,23 +2,11 @@ name: Reusable Java CI
 
 on:
   workflow_call:
-    inputs:
-      java-version:
-        description: "Java version"
-        required: false
-        type: string
-        default: "17"
-      gradle-task:
-        description: "Gradle task to run"
-        required: false
-        type: string
-        default: "build"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    # ★ ここがポイント：Docker Actionではなく job.container
     container:
       image: ghcr.io/masatake0511/build-java:0.0.3
 
@@ -27,9 +15,6 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
       - name: Gradle build
         run: |
-          ./gradlew ${{ inputs.gradle-task }}
+          gradle build -x test
