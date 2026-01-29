@@ -17,4 +17,4 @@ jobs:
 
       # ★ そのあと Action を呼ぶ
       - name: Build Java
-        uses: ./.github/actions/build/java
+        uses: ./pipeline-template/.github/actions/build/java
