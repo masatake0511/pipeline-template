@@ -27,11 +27,8 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Show environment (debug)
-        run: |
-          java -version
-          pwd
-          ls -la
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Gradle build
         run: |
