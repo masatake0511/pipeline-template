@@ -3,6 +3,10 @@ name: Java Build
 runs:
   using: composite
   steps:
+    - name: Grant execute permission
+      run: chmod +x "$GITHUB_ACTION_PATH/scripts/build_java.sh"
+      shell: bash
+
     - name: Build Java
       run: "$GITHUB_ACTION_PATH/scripts/build_java.sh"
       shell: bash
