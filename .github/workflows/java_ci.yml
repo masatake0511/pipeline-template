@@ -15,4 +15,5 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - uses: masatake0511/pipeline-template/.github/actions/build/java@main
+      - name: Build Java
+        uses: masatake0511/pipeline-template/.github/actions/build/java@main
