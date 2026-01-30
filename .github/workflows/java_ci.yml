@@ -15,6 +15,4 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Gradle build
-        run: |
-          gradle build -x test
+      - uses: uses: masatake0511/pipeline-template/.github/action/build/java@main

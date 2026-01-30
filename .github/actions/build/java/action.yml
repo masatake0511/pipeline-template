@@ -1,8 +1,6 @@
-name: "Build Java with Docker Image"
-description: "Build Java project using custom Docker image"
-
+name: Java Build
 runs:
-  using: docker
-  image: docker://ghcr.io/masatake0511/build-java:0.0.2
-  args:
-    - /github/workspace/.github/actions/build/java/script/build_java.sh
+  using: composite
+  steps:
+    - run: {$GITHUB_ACTION_PATH}/scripts/build_java.sh
+      shell: bash
