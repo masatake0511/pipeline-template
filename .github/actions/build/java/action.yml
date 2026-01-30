@@ -1,6 +1,8 @@
 name: Java Build
+
 runs:
   using: composite
   steps:
-    - run: {$GITHUB_ACTION_PATH}/scripts/build_java.sh
+    - name: Build Java
+      run: "$GITHUB_ACTION_PATH/scripts/build_java.sh"
       shell: bash
