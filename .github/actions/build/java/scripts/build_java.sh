@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 #source "${GITHUB_ROOT}/_lib/logging.sh"
 
 GRADLE_COMMAND="gradle clean build -x test"
