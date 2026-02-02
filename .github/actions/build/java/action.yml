@@ -6,3 +6,4 @@ runs:
     - name: Gradle Build
       run: |
         gradle clean build -x test
+      shell: bash
