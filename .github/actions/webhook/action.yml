@@ -3,9 +3,6 @@ name: Slack Notify
 inputs:
   webhook_url:
     required: true
-  message:
-    required: false
-    default: ""
 
 runs:
   using: composite

@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - run: |
+          echo "Length=${#WEBHOOK_URL}"
+          echo "$WEBHOOK_URL" | sed 's/./*/g'
+        env:
+          WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          
       - name: Webhook Test
         uses: masatake0511/pipeline-template/.github/actions/webhook@main
         with:
