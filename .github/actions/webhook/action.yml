@@ -3,6 +3,11 @@ name: Slack Notify
 inputs:
   webhook_url:
     required: true
+  status:
+    required: true
+  message:
+    required: false
+    default: ""
 
 runs:
   using: composite
@@ -11,7 +16,7 @@ runs:
       shell: bash
       env:
         WEBHOOK_URL: ${{ inputs.webhook_url }}
-        STATUS: ${{ job.status }}
+        STATUS: ${{ inputs.status }}
         MESSAGE: ${{ inputs.message }}
       run: |
         payload=$(cat <<EOF
