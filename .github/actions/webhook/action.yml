@@ -5,6 +5,7 @@ inputs:
     required: true
   status:
     required: true
+
 runs:
   using: composite
   steps:
@@ -12,31 +13,34 @@ runs:
       shell: bash
       env:
         WEBHOOK_URL: ${{ inputs.webhook_url }}
+        STATUS: ${{ inputs.status }}
       run: |
         payload=$(cat <<EOF
         {
-          "text": ステータス: success",
-          attachments: [{
-            color: "good",
-            fields: [
-              {title: "タイトル", value: "【通常】本番リリース", short: true},
-              {title: "リポジトリ", value: "org/repos", short: true},
-              {title: "ブランチ/タグ", value: "1.0.0", short: true},
-              {title: "実行者", value: "masatake", short: true},
-              {title: "ワークフローURL", value: "<\(https://xxx)|\(https://xxx)>", short: true}
-            ]
-          }]
+          "text": "ステータス: ${STATUS}",
+          "attachments": [
+            {
+              "color": "good",
+              "fields": [
+                {"title": "タイトル", "value": "【通常】本番リリース", "short": true},
+                {"title": "リポジトリ", "value": "org/repos", "short": true},
+                {"title": "ブランチ/タグ", "value": "1.0.0", "short": true},
+                {"title": "実行者", "value": "masatake", "short": true},
+                {"title": "ワークフローURL", "value": "<https://xxx|https://xxx>", "short": true}
+              ]
+            }
+          ]
         }
         EOF
         )
 
-        curl \
-          -X POST \
-          -H 'Content-type: application/json' \
-          --data "$payload" \
-          "$WEBHOOK_URL"
+        # 送信前にJSON検証（jq があれば）
+        if command -v jq >/dev/null 2>&1; then
+          if ! echo "$payload" | jq . >/dev/null 2>&1; then
+            echo "payload is not valid JSON"; echo "$payload"; exit 1
+          fi
+        else
+          echo "jq not found; skipping JSON validation"
+        fi
 
-
-
-
-
+        curl -sS -X POST -H 'Content-Type: application/json' --data "$payload" "$WEBHOOK_URL"
