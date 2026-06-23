@@ -17,13 +17,13 @@ runs:
         {
           "text": ステータス: success",
           attachments: [{
-            color: good,
+            color: "good",
             fields: [
               {title: "タイトル", value: "【通常】本番リリース", short: true},
               {title: "リポジトリ", value: "org/repos", short: true},
               {title: "ブランチ/タグ", value: "1.0.0", short: true},
               {title: "実行者", value: "masatake", short: true},
-              {title: "ワークフローURL", value: "<\(https://xxx)|(https://xxx)>", short: true}
+              {title: "ワークフローURL", value: "<\(https://xxx)|\(https://xxx)>", short: true}
             ]
           }]
         }
