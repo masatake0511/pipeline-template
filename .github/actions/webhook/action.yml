@@ -5,10 +5,6 @@ inputs:
     required: true
   status:
     required: true
-  message:
-    required: false
-    default: ""
-
 runs:
   using: composite
   steps:
@@ -16,12 +12,20 @@ runs:
       shell: bash
       env:
         WEBHOOK_URL: ${{ inputs.webhook_url }}
-        STATUS: ${{ inputs.status }}
-        MESSAGE: ${{ inputs.message }}
       run: |
         payload=$(cat <<EOF
         {
-          "text": "${STATUS}\n${MESSAGE}"
+          "text": ステータス: success",
+          attachments: [{
+            color: good,
+            fields: [
+              {title: "タイトル", value: "【通常】本番リリース", short: true},
+              {title: "リポジトリ", value: "org/repos", short: true},
+              {title: "ブランチ/タグ", value: "1.0.0", short: true},
+              {title: "実行者", value: "masatake", short: true},
+              {title: "ワークフローURL", value: "<\(https://xxx)|(https://xxx)>", short: true}
+            ]
+          }]
         }
         EOF
         )
@@ -31,3 +35,8 @@ runs:
           -H 'Content-type: application/json' \
           --data "$payload" \
           "$WEBHOOK_URL"
+
+
+
+
+
