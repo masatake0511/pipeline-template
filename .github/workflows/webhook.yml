@@ -18,5 +18,5 @@ jobs:
         uses: masatake0511/pipeline-template/.github/actions/webhook@main
         with:
           webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          status: success
+          status: ${{ job.status }}
           message: "Webhook Test"
