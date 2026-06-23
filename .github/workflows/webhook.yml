@@ -4,18 +4,11 @@ on:
   workflow_call:
 
 jobs:
-  build:
+  webhook_test:
     runs-on: ubuntu-latest
 
-    container:
-      image: ghcr.io/masatake0511/build-java:0.0.3
-
     steps:
-      # 呼び元リポジトリがチェックアウトされる
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Build Java
+      - name: Webhook Test
         uses: masatake0511/pipeline-template/.github/actions/webhook@main
         with:
           webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
