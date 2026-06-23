@@ -1,0 +1,31 @@
+name: Slack Notify
+
+inputs:
+  webhook_url:
+    required: true
+  message:
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Send Slack
+      shell: bash
+      env:
+        WEBHOOK_URL: ${{ inputs.webhook_url }}
+        STATUS: ${{ job.status }}
+        MESSAGE: ${{ inputs.message }}
+      run: |
+        payload=$(cat <<EOF
+        {
+          "text": "${STATUS}\n${MESSAGE}"
+        }
+        EOF
+        )
+
+        curl \
+          -X POST \
+          -H 'Content-type: application/json' \
+          --data "$payload" \
+          "$WEBHOOK_URL"
